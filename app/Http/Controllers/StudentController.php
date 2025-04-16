@@ -29,7 +29,7 @@ class StudentController extends Controller
         ]);
 
         Student::create($request->all());
-        return redirect()->route('student.index')->with('success','Product created successfully.');
+        return redirect()->route('student.index')->with('success','Student created successfully.');
     }
 
     public function show(Student $student)
@@ -40,23 +40,26 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         // return view('student.edit',compact('product'));
-        return view('student.edit');
+        return view('student.edit',compact('student'));
     }
 
     public function update(Request $request, Student $student)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
-            'detail' => 'required',
+            'id_number' => 'required',
+            'year' => 'required',
+            'section' => 'required',
         ]);
 
-        $student->update($request->all());
-        return redirect()->route('products.index')->with('success','Product updated successfully');
+        $student->update($validated);
+        return redirect()->route('student.index')->with('success','Student Updated');
+
     }
 
-    public function destroy(Student $student): RedirectResponse
+    public function destroy(Student $student)
     {
         $student->delete();
-        return redirect()->route('student.index')->with('success','Product deleted successfully');
+        return redirect()->route('student.index')->with('success','Student deleted successfully');
     }
 }

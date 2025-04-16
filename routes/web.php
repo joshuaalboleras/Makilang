@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::name('student.')->group(function(){
     Route::get('students',[StudentController::class,'index'])->name('index');
     Route::get('students/create',[StudentController::class,'create'])->name('create');
-    Route::get('students/edit',[StudentController::class,'edit'])->name('edit');
-    Route::get('students/show',[StudentController::class,'show'])->name('show');
+    Route::get('students/edit/{student}',[StudentController::class,'edit'])->name('edit');
+    Route::put('students/update/{student}',[StudentController::class,'update'])->name('update');
+    Route::get('students/show/{student}',[StudentController::class,'show'])->name('show');
+    Route::delete('students/delete/{student}',[StudentController::class,'destroy'])->name('delete');
     Route::post('students/store',[StudentController::class,'store'])->name('store');
 });
